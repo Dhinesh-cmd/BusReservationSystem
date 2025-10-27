@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 public class BusBooking {
 	String passengerName;
 	int busNo;
+	long passengerNum;
 	Date date;
 	int seat;
 	boolean checkConditions = true;
@@ -17,13 +18,18 @@ public class BusBooking {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		
+		System.out.print("Enter Bus No - ");
+		busNo = sc.nextInt();	
+		System.out.println();
+		
 		System.out.print("Enter Name of the Passenger - ");
 		passengerName = sc.next();
 		System.out.println();
 		
-		System.out.print("Enter Bus No - ");
-		busNo = sc.nextInt();	
+		System.out.print("Enter Mobile Number - ");
+		passengerNum = sc.nextLong();
 		System.out.println();
+		
 		
 		System.out.print("Enter Journey Date dd-mm-yyyy - ");
 		String dateInput = sc.next();
@@ -42,9 +48,9 @@ public class BusBooking {
 		while (!enteredDate.after(currentDate)) {
 			System.out.println("Invalid date — travel date must be in the future.");
 			checkConditions = false;
-			System.out.print("Enter Journey Date dd-mm-yyyy | Or Enter 2 to Main View - ");
+			System.out.print("Enter Journey Date dd-mm-yyyy | Or Enter 9 to Main View - ");
 			dateInput = sc.next();
-			if(dateInput.equals("2"))
+			if(dateInput.equals("9"))
 				break;
 			
 			try { date = dateFormat.parse(dateInput); }
@@ -52,6 +58,7 @@ public class BusBooking {
 			System.out.println();
 			enteredDate = date;
 		} 
+		
 		
 		
 //		System.out.print("How many Seats Need to Book - ");
@@ -68,6 +75,8 @@ public class BusBooking {
 		
 		return booked<capacity;
 	}
+	
+	
 	
 	
 }

@@ -32,4 +32,5 @@ public class BusDataAccess {
 		rs.next();
 		return rs.getInt(1);
 	}
+	
 }

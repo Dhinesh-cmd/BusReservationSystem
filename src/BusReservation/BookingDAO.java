@@ -26,15 +26,34 @@ public class BookingDAO {
 	}
 	
 	public void addBooking(BusBooking booking) throws SQLException{
-		String query = "Insert into Busbooking values(?,?,?)";
+		String query1 = "Insert into Busbooking  (passenger_name, passenger_num, bus_no, travel_date) values (?,?,?,?)";
+		String query2 = "select booking_id from busBooking where passenger_name =? and passenger_num =? and bus_no =? and travel_date =?";
 		Connection con = DBConnection.getConnection();
-		PreparedStatement pst = con.prepareStatement(query);
+		PreparedStatement pst = con.prepareStatement(query1);
 		pst.setString(1, booking.passengerName);
-		pst.setInt(2, booking.busNo);
+		pst.setLong(2, booking.passengerNum);
+		pst.setInt(3, booking.busNo);
 		
 		java.sql.Date sqlDate = new java.sql.Date(booking.date.getTime());
-		pst.setDate(3, sqlDate);
+		pst.setDate(4, sqlDate);
 		
 		pst.executeUpdate();
+		
+		Connection conSelect = DBConnection.getConnection();
+		PreparedStatement pstSelect = con.prepareStatement(query2);
+		pstSelect.setString(1, booking.passengerName);
+		pstSelect.setLong(2, booking.passengerNum);
+		pstSelect.setInt(3, booking.busNo);
+		pstSelect.setDate(4, sqlDate);
+		
+		ResultSet rs = pstSelect.executeQuery();
+		rs.next();
+		System.out.println("Your Booking Id is - "+ rs.getInt(1));
+	}
+	
+    public void storeUser(BusBooking booking) throws SQLException {
+		String query = "Insert into BookedUser values(?,?,?,?)";
+		Connection con = DBConnection.getConnection();
+		PreparedStatement pst = con.prepareStatement(query);
 	}
 }
